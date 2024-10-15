@@ -17,7 +17,7 @@ from geventhttpclient.url import URL, to_key_val_list
 
 
 class ConnectionError(Exception):
-    def __init__(self, url, *args, **kw):
+    def __init__(self, url = None, *args, **kw):
         self.url = url
         self.__dict__.update(kw)
         if args and isinstance(args[0], str):
@@ -40,7 +40,7 @@ class ConnectionError(Exception):
     def __repr__(self):
         repr_str = super().__repr__()
         if self.kw_text:
-            return repr_str.replace(")", "".join([", ", self.kw_text, ")"]))
+            return repr_str.replace(")", "".join([self.kw_text, ")"]) if self.url is None else "".join([", ", self.kw_text, ")"]))
         return repr_str
 
 
